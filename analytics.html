@@ -1,0 +1,139 @@
+<!-- analytics.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Trading Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar collapsed">
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i> TradeLog.
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link dashboard-link">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link active">
+                    <i class="fa-solid fa-chart-pie"></i> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="history.html" class="nav-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="sidebar-actions">
+                <a href="#" id="export-button" class="nav-link">
+                    <i class="fa-solid fa-file-export"></i> Export Data
+                </a>
+                <a href="#" id="import-button" class="nav-link">
+                    <i class="fa-solid fa-file-import"></i> Import Data
+                </a>
+                <a href="#" id="reset-button" class="nav-link">
+                    <i class="fa-solid fa-trash-can"></i> Reset Data
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <div class="header-left">
+                <div class="sidebar-toggle">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <h1>Analisis Performa</h1>
+            </div>
+        </header>
+
+        <div class="analytics-grid">
+            <div class="card trade-count-card">
+                <h3 class="card-title">Jumlah Trade</h3>
+                <div class="trade-count-grid">
+                    <div class="trade-count-item">
+                        <div class="trade-count-icon icon-purple"><i class="fa-solid fa-globe"></i></div>
+                        <div class="trade-count-info">
+                            <h4>Semua</h4><span>0</span>
+                        </div>
+                    </div>
+                    <div class="trade-count-item">
+                        <div class="trade-count-icon icon-blue"><i class="fa-solid fa-calendar-days"></i></div>
+                        <div class="trade-count-info">
+                            <h4>Bulanan</h4><span>0</span>
+                        </div>
+                    </div>
+                    <div class="trade-count-item">
+                        <div class="trade-count-icon icon-orange"><i class="fa-solid fa-calendar-week"></i></div>
+                        <div class="trade-count-info">
+                            <h4>Mingguan</h4><span>0</span>
+                        </div>
+                    </div>
+                    <div class="trade-count-item">
+                        <div class="trade-count-icon icon-green"><i class="fa-solid fa-calendar-day"></i></div>
+                        <div class="trade-count-info">
+                            <h4>Hari Ini</h4><span>0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Aset Paling Sering Ditrading</h3>
+                <div id="frequent-assets-list" class="frequent-assets-list">
+                </div>
+                <div id="frequent-assets-pagination" class="pagination-container">
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Ringkasan Profit & Loss</h3>
+                <div class="pnl-summary-list">
+                    <div class="pnl-summary-item">
+                        <span>Total Profit</span>
+                        <strong id="summary-total-profit" class="summary-profit">+Rp 0</strong>
+                    </div>
+                    <div class="pnl-summary-item">
+                        <span>Total Loss</span>
+                        <strong id="summary-total-loss" class="summary-loss">-Rp 0</strong>
+                    </div>
+                    <div class="pnl-summary-item">
+                        <span>Jumlah Trade Profit</span>
+                        <strong id="summary-win-trades">0</strong>
+                    </div>
+                    <div class="pnl-summary-item">
+                        <span>Jumlah Trade Loss</span>
+                        <strong id="summary-loss-trades">0</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card full-width-card">
+                <div class="chart-header">
+                    <h3 class="card-title">Performa PNL Kumulatif</h3>
+                    <div class="time-toggle" id="pnl-chart-toggle">
+                        <button class="toggle-btn" data-period="7d">7 Hari</button>
+                        <button class="toggle-btn" data-period="30d">30 Hari</button>
+                        <button class="toggle-btn" data-period="90d">90 Hari</button>
+                        <button class="toggle-btn" data-period="year">Tahun Ini</button>
+                        <button class="toggle-btn active" data-period="all">Semua</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="cumulativePnlChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="shared.js"></script>
+    <script src="analytics.js"></script>
+</body>
+</html>

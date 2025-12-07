@@ -1,0 +1,242 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <aside class="sidebar collapsed">
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i> TradeLog.
+        </div>
+        
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active dashboard-link">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="history.html" class="nav-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="card" style="margin-bottom: 20px; padding: 15px; border-radius: 10px;">
+                <h3 style="margin-bottom: 10px; font-size: 14px; font-weight: 600;">Atur Balance</h3>
+                <div class="form-group" style="gap: 8px;">
+                    <label for="balance-input" style="font-size: 11px; margin-bottom: 0;">Initial Balance (Rp)</label> 
+                    <input type="number" id="balance-input" placeholder="e.g., 1000000" style="padding: 8px 10px; height: 35px; font-size: 13px;">
+                    <button id="submit-balance-btn" class="submit-btn" style="height: 35px; font-size: 13px; width: 100%; margin-top: 5px;">Atur</button>
+                </div>
+            </div>
+
+            <div class="sidebar-actions">
+                <a href="#" id="export-button" class="nav-link">
+                    <i class="fa-solid fa-file-export"></i> Export Data
+                </a>
+                <a href="#" id="import-button" class="nav-link">
+                    <i class="fa-solid fa-file-import"></i> Import Data
+                </a>
+                <a href="#" id="reset-button" class="nav-link">
+                    <i class="fa-solid fa-trash-can"></i> Reset Data
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <div class="header-left">
+                <div class="sidebar-toggle">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-info">
+                    <h4>Anonymous</h4>
+                </div>
+                <div class="user-avatar-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="card stat-card">
+                <div class="stat-icon icon-blue"><i class="fa-solid fa-wallet"></i></div>
+                <div class="stat-info">
+                    <h5>Balance</h5>
+                    <h3 id="main-balance-value">Rp 0 <span class="trend-badge trend-up">+0.0%</span></h3>
+                </div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-green"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                <div class="stat-info">
+                    <h5>PNL Hari Ini</h5>
+                    <h3 id="pnl-today-value">+Rp 0 <span class="trend-badge trend-up">+0.0%</span></h3>
+                </div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-green"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="stat-info">
+                    <h5>Win Rate</h5>
+                    <h3 id="win-rate-value">0.0% <span class="trend-badge trend-up">--</span></h3>
+                </div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-green"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div class="stat-info">
+                    <h5>Profit</h5>
+                    <h3 id="total-profit-value">+Rp 0</h3>
+                </div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-red"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="stat-info">
+                    <h5>Loss</h5>
+                    <h3 id="total-loss-value">-Rp 0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="middle-section">
+            <div class="left-column">
+                <div class="card" id="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h5 style="color:var(--text-gray); font-weight:500;">Net Value PNL</h5>
+                            <h2 id="net-value-pnl" style="font-size: 28px; margin-top:5px; color: var(--success);">+Rp 0</h2>
+                        </div>
+                        <div class="time-toggle">
+                            <button class="toggle-btn active">Monthly</button>
+                            <button class="toggle-btn">Weekly</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        </div>
+                </div>
+
+                <div class="card trade-input-section">
+                    <h3 style="margin-bottom: 15px; font-size: 16px; font-weight: 600;">Input Trade Baru</h3>
+                    <form class="trade-input-form">
+                        <div class="form-group coin-search-wrapper">
+                            <label for="trade-symbol">Nama Coin</label>
+                            <input autocomplete="off" list="open-assets-list" id="trade-symbol" placeholder="Cari nama..." required>
+                            <datalist id="open-assets-list"></datalist>
+                            <div class="coin-search-results"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-price">Harga Beli/Jual</label>
+                            <input type="number" id="trade-price" placeholder="Harga Satuan" step="any" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-amount">Total Nominal (Rp)</label>
+                            <input type="number" id="trade-amount" placeholder="Total Rupiah" required>
+                        </div>
+                        <div class="form-group" style="flex: 0 0 100px;">
+                            <label for="trade-status">Aksi</label>
+                            <select id="trade-status">
+                                <option value="beli">Beli</option>
+                                <option value="jual">Jual</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card calendar-card">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">Trade Calender</h3>
+                <div class="cal-header">
+                    <i class="fa-solid fa-caret-left" style="cursor: pointer;" aria-label="Bulan Sebelumnya"></i>
+                    <span></span> 
+                    <i class="fa-solid fa-caret-right" style="cursor: pointer;" aria-label="Bulan Berikutnya"></i>
+                </div>
+
+                <div class="cal-weekdays">
+                    <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+                </div>
+
+                <div class="cal-grid">
+                    </div>
+
+                <div class="cal-footer">
+                    <div class="cal-stat">
+                        <span>Profit</span>
+                        <strong id="cal-profit-value" class="text-green">Rp 0</strong>
+                    </div>
+                    <div class="cal-stat">
+                        <span>Loss</span>
+                        <strong id="cal-loss-value" class="text-red">-Rp 0</strong>
+                    </div>
+                    <div class="cal-stat">
+                        <span>PNL</span>
+                        <strong id="cal-pnl-value" class="text-blue">Rp 0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-section">
+            <div class="card">
+                <h3 style="margin-bottom: 20px; font-size: 18px;">Aset Saat Ini</h3>
+                <div class="asset-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Coin</th>
+                                <th>Harga Coin</th>
+                                <th>Nominal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="current-assets-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 20px; font-size: 18px;">Recent Trades</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Coin</th>
+                                <th>Tipe</th>
+                                <th>Waktu</th>
+                                <th>Harga Coin</th>
+                                <th>Nominal</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-trades-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="shared.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

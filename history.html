@@ -1,0 +1,75 @@
+<!-- history.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Trade - Trading Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar collapsed">
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i> TradeLog.
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link dashboard-link">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="history.html" class="nav-link active">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History
+                </a>
+            </li>
+        </ul>
+        <div class="logout">
+            <a href="#" class="nav-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Riwayat Transaksi</h1>
+            <div class="search-wrapper">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="history-search-input" placeholder="Cari nama coin...">
+            </div>
+        </header>
+        <div class="card">
+            <div class="table-container">
+                <table id="history-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nama Coin</th>
+                            <th>Waktu Ditutup</th>
+                            <th>Harga Beli/Jual Coin</th>
+                            <th>Nominal PnL</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div id="pagination-container" class="pagination-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="shared.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>
